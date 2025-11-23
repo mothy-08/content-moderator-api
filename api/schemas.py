@@ -5,7 +5,7 @@ from pydantic import BaseModel, StringConstraints
 class Item(BaseModel):
     """
     Schema for incoming text to be moderated.
-    Ensures text is not empty and within a reasonable length
+    Ensures text is not empty and within max token length of 512 (approximately 2500 characters)
     """
 
     text: Annotated[

@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
-from content_moderator_api.app import app, get_moderator
-from content_moderator_api.content_moderator import ContentModerator
+from api.app import app, get_moderator
+from api.content_moderator import ContentModerator
 
 
 def mock_classifier(text):
