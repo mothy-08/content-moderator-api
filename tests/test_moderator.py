@@ -5,12 +5,12 @@ from api.content_moderator import ContentModerator
 
 def mock_classifier(text):
     if text == "Hello":
-        return [{"label": "safe", "score": 0.99}]
-    return [{"label": "unsafe", "score": 0.99}]
+        return [{"label": "SAFE", "score": 0.99}]
+    return [{"label": "UNSAFE", "score": 0.99}]
 
 
 def get_mock_moderator():
-    return ContentModerator(classifier=mock_classifier)
+    return ContentModerator(mock_classifier)
 
 
 app.dependency_overrides[get_moderator] = get_mock_moderator
@@ -27,14 +27,14 @@ def test_predict_valid_text():
     response = client.post("/predict", json={"text": "Hello"})
     assert response.status_code == 200
     data = response.json()
-    assert data["label"] == "safe"
+    assert data["label"] == "SAFE"
     assert data["score"] == 0.99
 
 
 def test_predict_normalization():
     response = client.post("/predict", json={"text": "Ｈｅｌｌｏ"})
     assert response.status_code == 200
-    assert response.json()["label"] == "safe"
+    assert response.json()["label"] == "SAFE"
 
 
 def test_predict_empty_text():
